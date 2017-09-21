@@ -1,9 +1,13 @@
 class AutocompleteController < ApplicationController
   def index
-    respond_to do |format|
-      format.json {
-        render :json => autocomplete_results
-      }
+    if has_perm('admin.entry')
+      respond_to do |format|
+        format.json {
+          render :json => autocomplete_results
+        }
+      end
+    else
+      raise ActionController::RoutingError.new('Not Found')
     end
   end
   
